@@ -47,7 +47,7 @@ const TaskForm = () => {
       onSubmit={handleSubmit}
       className="w-full max-w-xl mx-auto p-4 bg-white rounded-lg shadow-lg"
     >
-      {/* Mensaje de éxito */}
+      
       {successMessage && (
         <div className="p-2 mb-4 text-center bg-green-100 text-green-800 rounded-md shadow-md">
           {successMessage}

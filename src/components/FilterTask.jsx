@@ -15,7 +15,7 @@ const FilterTasks = ({ activeFilter, onFilterChange }) => {
     }`;
 
   return (
-    <div className="flex justify-center gap-4">
+    <div className="flex flex-col sm:flex-row justify-center gap-4 p-4">
       {filters.map((filter) => (
         <button
           key={filter.key}

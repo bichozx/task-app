@@ -6,7 +6,6 @@ const TaskItem = ({ taskId }) => {
   const { tasks, toggleTaskStatus, removeTask, editTask } =
     useContext(TaskContext);
 
-  // Buscar la tarea por taskId
   const task = tasks.find((t) => t._id === taskId);
 
   const [newTitle, setNewTitle] = useState('');
