@@ -13,7 +13,7 @@ const updateTask = (task, token) => {
   };
 
   return axios
-    .put(`${gConf.urlApi}api/tasks/${task._id}`, task, payload)
+    .put(`${gConf.urlApi}/api/tasks/${task._id}`, task, payload)
     .then((response) => response.data)
     .catch((error) => {
       console.error('Error al actualizar la tarea:', error);

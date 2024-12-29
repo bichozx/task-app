@@ -14,7 +14,7 @@ const createTask = (task, token) => {
 
   
   return axios
-    .post(`${gConf.urlApi}api/tasks`, task, config)
+    .post(`${gConf.urlApi}/api/tasks`, task, config)
     .then((response) => {
       
       return response.data;

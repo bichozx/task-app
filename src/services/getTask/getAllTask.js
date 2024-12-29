@@ -14,7 +14,7 @@ const getAllTasks = (token) => {
 
   
   return axios
-    .get(`${gConf.urlApi}api/tasks`, headersConfig)
+    .get(`${gConf.urlApi}/api/tasks`, headersConfig)
     .then((response) => {
       return response.data; 
     })

@@ -37,3 +37,7 @@ Para comenzar a trabajar en el proyecto, sigue los siguientes pasos:
 3. npm install
 
 4. npm start
+
+## Para trabajar en local
+
+urlApi: 'http://localhost:8082/',

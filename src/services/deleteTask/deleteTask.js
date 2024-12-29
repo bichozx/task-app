@@ -14,7 +14,7 @@ const deleteTask = (taskId, token) => {
 
   
   return axios
-    .delete(`${gConf.urlApi}api/tasks/${taskId}`, config)
+    .delete(`${gConf.urlApi}/api/tasks/${taskId}`, config)
     .catch((error) => {
       
       throw new Error(`Error al eliminar la tarea: ${error.message}`);
