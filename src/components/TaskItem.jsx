@@ -48,7 +48,11 @@ const TaskItem = ({ taskId }) => {
   };
 
   return (
-    <div className="flex justify-between items-center bg-white p-6 rounded-lg shadow-lg mb-4 max-w-4xl mx-auto transform transition duration-500 ease-in-out hover:scale-105 hover:shadow-2xl">
+    <div
+      className={`flex justify-between items-center p-6 rounded-lg shadow-lg mb-4 max-w-4xl mx-auto transform transition duration-500 ease-in-out hover:scale-105 hover:shadow-2xl ${
+        task.completed ? 'bg-green-200' : 'bg-yellow-200'
+      }`}
+    >
       <div className="sm:w-auto flex flex-col w-full">
         {isEditing ? (
           <div className="w-full sm:w-auto mx-auto flex flex-col sm:flex-row gap-4 mt-4">
@@ -82,7 +86,13 @@ const TaskItem = ({ taskId }) => {
               {task.title}
             </h3>
             <p className="mt-2">{task.description}</p>
-            <p>{task.completed ? 'Completada' : 'Pendiente'}</p>
+            <p
+              className={`text-sm font-bold ${
+                task.completed ? 'text-green-600' : 'text-yellow-600'
+              }`}
+            >
+              {task.completed ? 'Completada' : 'Pendiente'}
+            </p>
             <p className="text-xs text-gray-500 mt-2">
               Creada el: {formattedDate}
             </p>

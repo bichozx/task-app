@@ -2,7 +2,7 @@ import axios from 'axios';
 import gConf from '../conf/conf';
 
 const updateTask = (task, token) => {
-  console.log(task)
+  
   const AuthStr = `Bearer ${token}`;
   const payload = {
     headers: {

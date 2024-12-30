@@ -29,14 +29,14 @@ const TaskList = () => {
 
       {filteredTasks.length > 0 ? (
         filteredTasks.map((task) => (
-          <div className="animate-fade-in space-y-4">
+          
             <TaskItem
               key={task._id}
               taskId={task._id}
               handleToggleStatus={() => handleToggleStatus(task._id)}
               handleDelete={() => handleDelete(task._id)}
             />
-          </div>
+          
         ))
       ) : (
         <p className="text-center text-gray-500 mt-4">

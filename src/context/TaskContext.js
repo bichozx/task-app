@@ -14,9 +14,11 @@ export const TaskProvider = ({ children }) => {
   useEffect(() => {
     getAllTasks()
       .then((data) => {
-        
         if (Array.isArray(data.tasks)) {
-          setTasks(data.tasks); 
+          const sortedTasks = data.tasks.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+          setTasks(sortedTasks);
         } else {
           console.error('Los datos no tienen la estructura esperada', data);
           setError('Error al cargar las tareas');
@@ -28,31 +30,67 @@ export const TaskProvider = ({ children }) => {
       });
   }, []);
 
+  const fetchAndSetTasks = () => {
+    return getAllTasks() 
+      .then((data) => {
+        if (Array.isArray(data.tasks)) {
+          const sortedTasks = data.tasks.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+          setTasks(sortedTasks);
+        } else {
+          console.error(
+            'Error: Los datos no tienen la estructura esperada',
+            data
+          );
+          setError('Error al cargar las tareas');
+        }
+      })
+      .catch((err) => {
+        console.error('Error al obtener las tareas:', err);
+        setError('Error al obtener las tareas');
+      });
+  };
+
   const addTask = (task) => {
     createTask(task)
       .then(() => {
-        getAllTasks()
-          .then((data) => {
-            if (Array.isArray(data.tasks)) {
-              setTasks(data.tasks);
-            } else {
-              console.error(
-                'Error al agregar tarea: Los datos no tienen la estructura esperada'
-              );
-              setError('Error al agregar la tarea');
-            }
-          })
-          .catch((err) => {
-            console.error(
-              'Error al obtener las tareas después de agregar',
-              err
-            );
-            setError('Error al obtener las tareas después de agregar');
-          });
+        fetchAndSetTasks().catch((err) => {
+          console.error('Error al obtener las tareas después de agregar', err);
+          setError('Error al obtener las tareas después de agregar');
+        });
       })
       .catch((err) => {
         console.error('Error al agregar tarea:', err);
         setError('Error al agregar la tarea');
+      });
+  };
+
+  const editTask = (id, updatedFields) => {
+    updateTask({ _id: id, ...updatedFields })
+      .then(() => {
+        fetchAndSetTasks().catch((err) => {
+          console.error('Error al obtener las tareas después de editar', err);
+          setError('Error al obtener las tareas después de editar');
+        });
+      })
+      .catch((err) => {
+        console.error('Error al editar la tarea:', err);
+        setError('Error al editar la tarea');
+      });
+  };
+
+  const removeTask = (id) => {
+    deleteTask(id)
+      .then(() => {
+        fetchAndSetTasks().catch((err) => {
+          console.error('Error al obtener las tareas después de eliminar', err);
+          setError('Error al obtener las tareas después de eliminar');
+        });
+      })
+      .catch((err) => {
+        console.error('Error al eliminar tarea:', err);
+        setError('Error al eliminar la tarea');
       });
   };
 
@@ -71,59 +109,6 @@ export const TaskProvider = ({ children }) => {
         setError('Error al actualizar el estado de la tarea');
       });
     }
-  };
-
-  const editTask = (id, updatedFields) => {
-    updateTask({ _id: id, ...updatedFields })
-      .then(() => {
-        getAllTasks()
-          .then((data) => {
-            if (Array.isArray(data.tasks)) {
-              setTasks(data.tasks);
-            } else {
-              console.error(
-                'Error al editar tarea: Los datos no tienen la estructura esperada'
-              );
-              setError('Error al editar la tarea');
-            }
-          })
-          .catch((err) => {
-            console.error('Error al obtener las tareas después de editar', err);
-            setError('Error al obtener las tareas después de editar');
-          });
-      })
-      .catch((err) => {
-        console.error('Error al editar la tarea:', err);
-        setError('Error al editar la tarea');
-      });
-  };
-
-  const removeTask = (id) => {
-    deleteTask(id)
-      .then(() => {
-        getAllTasks()
-          .then((data) => {
-            if (Array.isArray(data.tasks)) {
-              setTasks(data.tasks);
-            } else {
-              console.error(
-                'Error al eliminar tarea: Los datos no tienen la estructura esperada'
-              );
-              setError('Error al eliminar la tarea');
-            }
-          })
-          .catch((err) => {
-            console.error(
-              'Error al obtener las tareas después de eliminar',
-              err
-            );
-            setError('Error al obtener las tareas después de eliminar');
-          });
-      })
-      .catch((err) => {
-        console.error('Error al eliminar tarea:', err);
-        setError('Error al eliminar la tarea');
-      });
   };
 
   return (
