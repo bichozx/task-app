@@ -95,21 +95,26 @@ export const TaskProvider = ({ children }) => {
   };
 
   const toggleTaskStatus = (id) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
+    
+    setTasks((prevTasks) => {
+      
+      const updatedTasks = prevTasks.map((task) =>
         task._id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-
-    const task = tasks.find((t) => t._id === id);
-    if (task) {
-      const updatedFields = { _id: id, completed: !task.completed };
+      );
+      return updatedTasks; 
+    });
+  
+    
+    const taskToUpdate = tasks.find((task) => task._id === id); 
+    if (taskToUpdate) {
+      const updatedFields = { _id: id, completed: !taskToUpdate.completed };
       updateTask(updatedFields).catch((err) => {
         console.error('Error al actualizar la tarea:', err);
         setError('Error al actualizar el estado de la tarea');
       });
     }
   };
+  
 
   return (
     <TaskContext.Provider
