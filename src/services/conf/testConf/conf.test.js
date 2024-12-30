@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 
-import gConf from '../conf'; // Importa el archivo de configuración
+import gConf from '../conf';
 
 describe('Configuración de la API', () => {
   it('debe tener la URL de la API definida', () => {

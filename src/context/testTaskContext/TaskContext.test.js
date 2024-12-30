@@ -117,53 +117,31 @@ describe('TaskContext', () => {
     expect(getAllTasks).toHaveBeenCalledTimes(1);
   });
 
-  // it('debe alternar el estado de una tarea', async () => {
-  //   updateTask.mockResolvedValueOnce({});
-  //   const localMockTasks = [...mockTasks];
-  //   localMockTasks[0].completed = true;
-
-  //   renderWithProvider(
-  //     <TaskContext.Consumer>
-  //       {(value) => {
-  //         value.toggleTaskStatus('1');
-  //         return (
-  //           <p>
-  //             {value.tasks.find((task) => task._id === '1')?.completed
-  //               ? 'Completada'
-  //               : 'Pendiente'}
-  //           </p>
-  //         );
-  //       }}
-  //     </TaskContext.Consumer>
-  //   );
-
   it('debe alternar el estado de una tarea', async () => {
     updateTask.mockResolvedValueOnce({});
   
     renderWithProvider(
       <TaskContext.Consumer>
         {(value) => {
-          // Ejecutamos toggleTaskStatus dentro de act
+          
           act(() => {
             value.toggleTaskStatus('1');
           });
-          // Aseguramos que la renderización se actualiza correctamente
+          
           const task = value.tasks.find((task) => task._id === '1');
           return <p>{task?.completed ? 'Completada' : 'Pendiente'}</p>;
         }}
       </TaskContext.Consumer>
     );
   
-    // Usamos waitFor para esperar que el estado se haya actualizado
+    
     await waitFor(() => {
-      // Esperar explícitamente 2 segundos antes de hacer la aserción
+      
       return new Promise((resolve) => setTimeout(resolve, 2000));
     });
   
-    // Verificamos que el texto "Completada" esté en el DOM
+    
     expect(screen.getByText('Completada')).toBeInTheDocument();
-  
-    // Verificamos que la actualización de la tarea haya sido llamada correctamente
     expect(updateTask).toHaveBeenCalledWith({
       _id: '1',
       completed: true,

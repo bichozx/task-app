@@ -83,7 +83,7 @@ describe('TaskList Component', () => {
 
     fireEvent.click(pendingFilterButton);
 
-    // Espera a que el mensaje "No hay tareas para mostrar" aparezca
+    
     await waitFor(() => {
       expect(
         screen.getByText(/No hay tareas para mostrar/i)

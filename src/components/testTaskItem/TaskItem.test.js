@@ -87,11 +87,11 @@ describe('TaskItem Component', () => {
     const descriptionInput = screen.getByPlaceholderText('Nueva descripción');
     const saveButton = screen.getByRole('button', { name: /Guardar/i });
 
-    // Cambia los valores de los campos
+    
     fireEvent.change(titleInput, { target: { value: 'Título actualizado' } });
     fireEvent.change(descriptionInput, { target: { value: 'Descripción actualizada' } });
 
-    // Haz clic en guardar
+    
     fireEvent.click(saveButton);
 
     expect(mockEditTask).toHaveBeenCalledTimes(1);
